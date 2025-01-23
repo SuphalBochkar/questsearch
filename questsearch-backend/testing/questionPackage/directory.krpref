@@ -1,0 +1,20 @@
+{
+  "settings": [
+    {
+      "options": {
+        "grpc": {
+          "endpoint": "http://localhost:8080",
+          "metadata": [
+            {
+              "key": ",n",
+              "value": ""
+            }
+          ]
+        },
+        "rest": {
+          "pathParams": []
+        }
+      }
+    }
+  ]
+}

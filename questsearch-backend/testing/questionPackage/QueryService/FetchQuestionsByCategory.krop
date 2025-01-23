@@ -1,0 +1,13 @@
+{
+  "details": {
+    "methodFqn": "questionPackage.QueryService.FetchQuestionsByCategory"
+  },
+  "requests": [
+    {
+      "location": "FetchQuestionsByCategory-request.json"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "grpc",
+  "importStreamId": "44361022-13d3-4513-9b0b-ce78456d72e8"
+}
