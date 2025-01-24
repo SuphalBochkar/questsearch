@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from "react";
+import { SearchBox } from "@/components/SearchBox";
+import { QuestionList } from "@/components/QuestionList";
 import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <>
@@ -18,6 +22,11 @@ export default function Home() {
               knowledge
             </p>
             <div className="w-24 h-1 bg-indigo-600 mx-auto rounded-full mt-8"></div>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-8">
+            <SearchBox onSearch={setSearchQuery} />
+            <QuestionList searchQuery={searchQuery} />
           </div>
         </div>
       </main>
