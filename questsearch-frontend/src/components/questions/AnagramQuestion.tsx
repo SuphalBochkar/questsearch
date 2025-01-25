@@ -77,19 +77,19 @@ export function AnagramQuestion({
 
   const getBlockStyle = (id: number) => {
     if (selectedBlocks.some((block) => block.id === id)) {
-      return "bg-gray-100 text-gray-400 cursor-not-allowed opacity-50";
+      return "bg-gray-200 text-gray-500 cursor-not-allowed";
     }
     return anagramType === "WORD"
-      ? "bg-white hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer shadow-sm text-lg font-medium"
-      : "bg-white hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer shadow-sm";
+      ? "bg-white hover:bg-indigo-50 hover:text-indigo-600 text-gray-700 cursor-pointer shadow-sm text-lg font-medium border-indigo-100"
+      : "bg-white hover:bg-indigo-50 hover:text-indigo-600 text-gray-700 cursor-pointer shadow-sm border-indigo-100";
   };
 
   return (
     <div className="mt-4 space-y-4">
       {/* Selected words display */}
-      <div className="p-4 min-h-[60px] bg-white rounded-lg border border-gray-200 break-words">
+      <div className="p-4 min-h-[60px] bg-white rounded-lg border-2 border-indigo-100 break-words">
         {selectedBlocks.length > 0 ? (
-          <p className="text-gray-700 text-lg">
+          <p className="text-gray-700 text-lg font-medium">
             {selectedBlocks
               .map((block) => block.text)
               .join(anagramType === "WORD" ? "" : " ")}
@@ -103,7 +103,7 @@ export function AnagramQuestion({
       </div>
 
       {/* Word blocks */}
-      <div className="p-4 bg-gray-50 rounded-lg">
+      <div className="p-4 bg-indigo-50/50 rounded-lg">
         <div
           className={`flex flex-wrap gap-3 ${
             anagramType === "WORD" ? "justify-center" : "justify-start"
@@ -119,7 +119,9 @@ export function AnagramQuestion({
                   (selected) => selected.id === block.id
                 )}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200
-                       border border-gray-200 ${getBlockStyle(block.id)}`}
+                       border-2 shadow-sm hover:shadow-md ${getBlockStyle(
+                         block.id
+                       )}`}
               >
                 {block.text}
               </button>
@@ -163,12 +165,12 @@ export function AnagramQuestion({
             {isCorrect ? (
               <>
                 <CheckCircleIcon className="w-5 h-5" />
-                Correct! Well done! 🎉
+                Correct!
               </>
             ) : (
               <>
                 <XCircleIcon className="w-5 h-5" />
-                Not quite right. Try again! 💪
+                Try again!
               </>
             )}
           </div>
