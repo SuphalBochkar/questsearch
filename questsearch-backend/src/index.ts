@@ -15,7 +15,7 @@ import {
 import { DBConnection } from "./db/database";
 
 const PORT = 8080;
-const PROTO_FILE = "../proto/questions.proto";
+const PROTO_FILE = "../../proto/questions.proto";
 
 const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE), {
   keepCase: true,
