@@ -23,7 +23,7 @@ const clientOptions = {
 };
 
 const client = new grpcObj.questionPackage.QueryService(
-  "localhost:8080",
+  process.env.GRPC_SERVER_URL || "localhost:8080",
   grpc.credentials.createInsecure(),
   clientOptions
 );

@@ -39,10 +39,10 @@ function main() {
   });
 
   server.bindAsync(
-    `0.0.0.0:${PORT}`,
+    `127.0.0.1:${process.env.PORT || PORT}`,
     grpc.ServerCredentials.createInsecure(),
-    (_err, _port) => {
-      console.log(`Server is running`);
+    (_err, port) => {
+      console.log(`Server is running on port ${port}`);
     }
   );
 }
