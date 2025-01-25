@@ -45,6 +45,35 @@ export function QuestionList({ searchQuery }: QuestionListProps) {
     async (title: string, category: string, page: number, limit: number) => {
       setLoading(true);
       setError("");
+
+      try {
+        const response = await fetch(`/api/questions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, category, page, limit }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setQuestions(data.items || []);
+          setTotalCount(data.totalItems || 0);
+        } else {
+          setError(data.error || "Failed to fetch questions");
+          setQuestions([]);
+          setTotalCount(0);
+        }
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "An unknown error occurred"
+        );
+        setQuestions([]);
+        setTotalCount(0);
+      } finally {
+        setLoading(false);
+      }
     },
     []
   );
