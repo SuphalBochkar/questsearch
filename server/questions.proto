@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package questionPackage;
+
+service QueryService {
+  rpc FetchQuestionsByTitle (TitleQuery) returns (QueryResponse);
+  rpc FetchQuestionsByCategory (CategoryQuery) returns (QueryResponse);
+  rpc FetchQuestionsByTitleAndCategory (TitleCategoryQuery) returns (QueryResponse);
+}
+
+message TitleQuery {
+  string title = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message CategoryQuery {
+  string category = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message TitleCategoryQuery{
+  string title = 1;
+  string category = 2;
+  int32 page = 3;
+  int32 limit = 4;
+}
+
+message QueryResponse {
+  repeated QuestionItem items = 1;
+  int32 totalItems = 2;
+}
+
+message QuestionItem {
+  string id = 1;                   // Maps to _id.$oid
+  string type = 2;                 // "ANAGRAM", "MCQ", etc.
+  string title = 3;
+  string solution = 4;             // Solution text
+  string anagramType = 5;          // "WORD" or "SENTENCE"
+  repeated Block blocks = 6;       // Was Fragment (now matches JSON "blocks")
+  repeated Option options = 7;     // Was Choice (now matches JSON "options")
+  string siblingId = 8;            // Maps to siblingId.$oid
+}
+
+// Renamed from Fragment to match JSON "blocks" array items
+message Block {
+  string text = 1;
+  bool showInOption = 2;           // Matches JSON field
+  bool isAnswer = 3;               // Was correctAnswer
+}
+
+// Renamed from Choice to match JSON "options" array items
+message Option {
+  string text = 1;
+  bool isCorrectAnswer = 2;        // Matches JSON field
+}

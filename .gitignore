@@ -67,3 +67,5 @@ temp/
 # Proto-generated files (optional, uncomment to include)
 # proto/**/*.js
 # proto/**/*.ts
+
+node_modules/
