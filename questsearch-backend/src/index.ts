@@ -13,7 +13,7 @@ import {
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
-const PROTO_FILE = "./src/questions.proto";
+const PROTO_FILE = "./questions.proto";
 
 const packageDef = protoLoader.loadSync(path.resolve(PROTO_FILE), {
   keepCase: true,
