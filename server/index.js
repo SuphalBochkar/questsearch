@@ -1,6 +1,7 @@
 const path = require("path");
 const grpc = require("@grpc/grpc-js");
 const protoLoader = require("@grpc/proto-loader");
+const express = require("express");
 const dotenv = require("dotenv");
 const { DBConnection } = require("./db/database");
 const {
@@ -10,6 +11,13 @@ const {
 } = require("./handlers/service.handlers");
 
 dotenv.config();
+
+const app = express();
+const HTTP_PORT = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.status(200).send("OK");
+});
 
 const PROTO_FILE = "./questions.proto";
 
@@ -29,6 +37,10 @@ async function main() {
     await DBConnection();
     console.log("Database connection established");
 
+    app.listen(HTTP_PORT, () => {
+      console.log(`Health check server running on port ${HTTP_PORT}`);
+    });
+
     const server = new grpc.Server();
     server.addService(questionPackage.QueryService.service, {
       FetchQuestionsByTitle,
@@ -41,10 +53,10 @@ async function main() {
       grpc.ServerCredentials.createInsecure(),
       (error, port) => {
         if (error) {
-          console.error("Error starting server:", error);
+          console.error("Error starting gRPC server:", error);
           return;
         }
-        console.log(`Server running at http://0.0.0.0:${port}`);
+        console.log(`gRPC server running at http://0.0.0.0:${port}`);
         server.start();
       }
     );
