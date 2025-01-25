@@ -2,7 +2,6 @@ import path from "path";
 import * as grpc from "@grpc/grpc-js";
 import * as protoLoader from "@grpc/proto-loader";
 import dotenv from "dotenv";
-import { VercelRequest, VercelResponse } from "@vercel/node";
 import { ProtoGrpcType } from "./questions";
 import { DBConnection } from "./db/database";
 import {
@@ -10,12 +9,13 @@ import {
   FetchQuestionsByTitle,
   FetchQuestionsByTitleAndCategory,
 } from "./handlers/service.handlers";
+// import { VercelRequest, VercelResponse } from "@vercel/node";
 
 dotenv.config();
 const PORT = process.env.PORT || 8080;
-const PROTO_FILE = path.resolve(__dirname, "../proto/questions.proto");
+const PROTO_FILE = "./src/questions.proto";
 
-const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE), {
+const packageDef = protoLoader.loadSync(path.resolve(PROTO_FILE), {
   keepCase: true,
   longs: String,
   enums: String,
