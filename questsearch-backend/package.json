@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "build": "tsc && ls -la",
+    "build": "tsc && ls -la && cp -r proto/ dist/proto/ && cp -r src/proto/ dist/proto/",
     "start": "node dist/src/index.js",
     "proto:gen": "./proto/proto-gen.sh",
     "client": "ts-node client"

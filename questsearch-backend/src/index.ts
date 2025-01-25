@@ -1,21 +1,19 @@
 import path from "path";
 import * as grpc from "@grpc/grpc-js";
 import * as protoLoader from "@grpc/proto-loader";
-import { ProtoGrpcType } from "./questions";
-import { VercelRequest, VercelResponse } from "@vercel/node";
-
 import dotenv from "dotenv";
-dotenv.config();
-
+import { VercelRequest, VercelResponse } from "@vercel/node";
+import { ProtoGrpcType } from "./questions";
+import { DBConnection } from "./db/database";
 import {
   FetchQuestionsByCategory,
   FetchQuestionsByTitle,
   FetchQuestionsByTitleAndCategory,
 } from "./handlers/service.handlers";
-import { DBConnection } from "./db/database";
 
-const PORT = 8080;
-const PROTO_FILE = "../../proto/questions.proto";
+dotenv.config();
+const PORT = process.env.PORT || 8080;
+const PROTO_FILE = path.resolve(__dirname, "../proto/questions.proto");
 
 const packageDef = protoLoader.loadSync(path.resolve(__dirname, PROTO_FILE), {
   keepCase: true,
@@ -29,10 +27,6 @@ const grpcObj = grpc.loadPackageDefinition(
   packageDef
 ) as unknown as ProtoGrpcType;
 const questionPackage = grpcObj.questionPackage;
-
-export default (req: VercelRequest, res: VercelResponse) => {
-  res.status(200).send("Hello from Vercel!");
-};
 
 function main() {
   DBConnection();
@@ -53,3 +47,7 @@ function main() {
 }
 
 main();
+
+// export default (req: VercelRequest, res: VercelResponse) => {
+//   res.status(200).send("server running");
+// };
